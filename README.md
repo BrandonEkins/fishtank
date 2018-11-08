@@ -6,4 +6,4 @@ The goal of this project is to simplify the different tasks associated with taki
 
 ## Project Diagram
 
-![diagram](IOT FIshtank.jpg)
+![diagram](IOTFishtank.jpg)
