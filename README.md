@@ -7,3 +7,23 @@ The goal of this project is to simplify the different tasks associated with taki
 ## Project Diagram
 
 ![diagram](IOTFishtank.jpg)
+
+## Circuit
+
+![circuit](PhotoResistor.png)
+
+
+## Components
+
+- Raspberry Pi 3 configured running Raspbian
+- WEMOS d1 mini 
+- TMP36 Tempurature sensor
+- 2 Diodes
+- 1 10K ohm resistor
+- 	 
+
+
+
+
+Sources:
+
