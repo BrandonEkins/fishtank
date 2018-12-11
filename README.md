@@ -8,16 +8,22 @@ The goal of this project is to simplify the different tasks associated with taki
 
 ![diagram](photos/IOTFishtank.jpg)
 
-## Circuit
+## Circuits
+
+### Measuring Circuit
 
 ![circuit](photos/PhotoResistor.png)
+
+### Button Circuit
+
+![circuit](photos/buttonCircuit.png)
 
 ## Part list
 
 1. Raspberry Pi
     - Raspbian
 
-2. Tank Cleanliness sensor
+2. Tank sensor
     - Photo Resistor 
     - Wemos D1 Mini
     - Thermometer
@@ -40,13 +46,16 @@ Utilize at least 2 wireless communication protocols (wifi, BLE, RFID, LoRa, etc)
 wifi, mqtt & web interface
 
 Utilize restful API
+basic information from tank sensor
 
 Utilize event hub or cloud IoT service
 mqtt on raspberry pi
+
 Utilize a non-web page interface (voice, IFTTT, chat)
-slackbot
+IFTTT
 
 ### Sources
 
 http://www.esp8266learning.com/wemos-oled-shield-example.php
 
+## Source Code
