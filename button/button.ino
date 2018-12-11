@@ -4,19 +4,19 @@
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
 #include <Adafruit_GFX.h>
-const char* ssid = "BYU-WiFi"; //SSID of your Wi-Fi router
-const char* password = ""; //Password of y
-const char* mqtt_server = ""; //ip of hub
-
+const char* ssid = "Chicken Hat"; //SSID of your Wi-Fi router
+const char* password = "super 40141 HAIRcut party"; //Password of y
+const char* mqtt_server = "192.168.44.88"; //ip of hub
+char message_buff[50];
 #define OLED_RESET 0  // GPIO0
+#define buttonPin D8
 Adafruit_SSD1306 display(OLED_RESET);
-
+String light;
+String temp;
 WiFiClient espClient;
 PubSubClient client(espClient);
-long lastMsg = 0;
-int value = 0;
-int state = 2;
-
+int buttonToggle = 1;
+int buttonState = 0;
 void setup_wifi() {
   Serial.print("Connecting to ");
   Serial.println(ssid);
@@ -35,14 +35,32 @@ void callback(char* topic, byte* payload, unsigned int length) {
   char msg[length];
   Serial.print("Message arrived [");
   Serial.print(topic);
-  Serial.print("] ");
-  for (int i = 0; i < length; i++) {
-    //Serial.print((char)payload[i]);
-		//msg = msg + (char)payload[i];
+  Serial.print("] "); 
+  // create character buffer with ending null terminator (string)
+  int i = 0;
+  for(i=0; i<length; i++) {
+    message_buff[i] = payload[i];
   }
-	Serial.println(msg);
-  Serial.println();
+  message_buff[i] = '\0';
+  
+  String msgString = String(message_buff);
+  Serial.println(msgString);
+  String msgtopic = String(topic); 
+  if (msgtopic.equals("light")){
+    light = msgString;
+  }
+  else if (msgtopic.equals("temp")){
+    temp = msgString;
+  }
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+  display.setCursor(0,10);
+  display.println("Dirt: " + light);
+  display.println("Temp: " + temp);
+  display.display();  
 }
+
 
 void reconnect() {
   while (!client.connected()) {
@@ -53,7 +71,8 @@ void reconnect() {
       Serial.println("connected");
       // Once connected, publish an announcement...
       client.publish("test", clientId.c_str());
-      client.subscribe("test");
+      client.subscribe("temp");
+      client.subscribe("light");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -66,67 +85,12 @@ void reconnect() {
 
 void setup() {
   Serial.begin(9600);
-  //setup_wifi();
-  //client.setServer(mqtt_server, 1883);
-  //client.setCallback(callback);
+  setup_wifi();
+  pinMode(buttonPin, INPUT);
+  client.setServer(mqtt_server, 1883);
+  client.setCallback(callback);
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 64x48)
-  display.display();
-  delay(2000);
   display.clearDisplay();
-  display.setTextSize(1);
-  display.setTextColor(WHITE);
-  display.setCursor(0,10);
-  display.println("Hello");
-  display.display();
-  delay(10000);
-  #include <SPI.h>
-#include <Wire.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
- 
-// SCL GPIO5
-// SDA GPIO4
-#define OLED_RESET 0  // GPIO0
-Adafruit_SSD1306 display(OLED_RESET);
- 
-#define NUMFLAKES 10
-#define XPOS 0
-#define YPOS 1
-#define DELTAY 2
- 
- 
-#define LOGO16_GLCD_HEIGHT 16
-#define LOGO16_GLCD_WIDTH  16
- 
- 
-void setup()   {
-  Serial.begin(9600);
- 
-  // by default, we'll generate the high voltage from the 3.3v line internally! (neat!)
-  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);  // initialize with the I2C addr 0x3C (for the 64x48)
-  // init done
- 
-  //display.display();
-  //delay(2000);
- 
-  //// Clear the buffer.
-  //display.clearDisplay();
- 
-  //// text display tests
-  //display.setTextSize(1);
-  //display.setTextColor(WHITE);
-  //display.setCursor(0,0);
-  //display.println("Hello, world!");
-  //display.display();
-  //delay(2000);
-  //display.clearDisplay();
- 
-}
- 
- 
-void loop() {
- 
-}
 }
 
 void loop() {
@@ -134,6 +98,15 @@ void loop() {
     reconnect();
   }
   client.loop();
-  //input needed code here
+  buttonState = digitalRead(buttonPin);
+  if (buttonState == HIGH && buttonToggle != buttonState){
+    Serial.println("HIGH");
+    client.publish("button", "1");
+    buttonToggle = buttonState;
+  }
+  else if (buttonState == LOW && buttonToggle != buttonState){
+    Serial.println("LOW");
+    buttonToggle = buttonState;
+  }
   
 }
