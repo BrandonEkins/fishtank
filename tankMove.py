@@ -96,13 +96,13 @@ def right(step):
         Step1()
     print("Step right: ",step)
 
-o = open("test", "w")
-o.write("it works")
-o.close()
 
 def main():
     left(rev)
     GPIO.cleanup()
 
 if __name__ == '__main__':
-    main()
+   o = open("test", "w")
+   o.write("it works")
+   o.close()
+   main()

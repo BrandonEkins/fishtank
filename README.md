@@ -6,11 +6,11 @@ The goal of this project is to simplify the different tasks associated with taki
 
 ## Project Diagram
 
-![diagram](IOTFishtank.jpg)
+![diagram](photos/IOTFishtank.jpg)
 
 ## Circuit
 
-![circuit](PhotoResistor.png)
+![circuit](photos/PhotoResistor.png)
 
 ## Part list
 
