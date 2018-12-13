@@ -1,4 +1,4 @@
-###!flask/bin/python
+#!/usr/bin/python3
 from flask import Flask 
 from flask import json
 from flask_cors import CORS 
@@ -18,7 +18,7 @@ def food():
         lines = f.readlines()
     for line in lines:
         line = line.split("$")  
-        feedInfo.append= line[1].strip()
+        feedInfo.append(line[0].strip())
         
     response = app.response_class(
         response=json.dumps(feedInfo),

@@ -1,0 +1,13 @@
+[Unit]
+Description=mqtt listener
+After=network.target
+
+[Service]
+Type=simple
+User=root
+ExecStart=/home/ekinsb/fishtank/mqttReader.py
+Restart=on-failure
+# Other Restart options: or always, on-abort, etc
+
+[Install]
+WantedBy=multi-user.target

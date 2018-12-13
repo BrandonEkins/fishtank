@@ -1,7 +1,9 @@
+#!/usr/bin/python
 import paho.mqtt.client as mqtt
 import datetime
 import subprocess
 buttontime = datetime.datetime.now()
+
 def on_connect(client, userdata, flags, rc):
     print("Connected with result code "+str(rc))
     client.subscribe("temp")
@@ -17,22 +19,13 @@ def on_message(client, userdata, msg):
         f.close()
 
     elif msg.topic == "button":
-        print("Hello")
-        print(buttontime)
-        secdiff = (datetime.datetime.now() - buttontime).seconds
-        print(secdiff)
-        if secdiff > 2:
-            buttontime == datetime.datetime.now()
-        else:
-            subprocess.Popen("sudo python tankMove.py", shell=True)
-            f = open("food.txt","a")
-            st = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + " $ fed\n"
-            print(st)
-            f.write(st)
-            f.close()
-    
-        client.publish("command", "light")
-        client.publish("command", "temp")
+        print("button")
+        subprocess.Popen("sudo python tankMove.py", shell=True)
+        f = open("food.txt","a")
+        st = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S') + " $ " + msg.payload + "\n"
+        print(st)
+        f.write(st)
+        f.close()
 
     elif msg.topic == "temp":
         f = open("temp.txt","a")

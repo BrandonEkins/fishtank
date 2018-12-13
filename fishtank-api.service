@@ -1,0 +1,15 @@
+[Unit]
+Description=fishtank api
+After=network.target
+
+[Service]
+Type=simple
+# Another Type option: forking
+User=root
+WorkingDirectory=/home/ekinsb/fishtank
+ExecStart=/home/ekinsb/fishtank/api.py
+Restart=on-failure
+# Other Restart options: or always, on-abort, etc
+
+[Install]
+WantedBy=multi-user.target
