@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 <script src="myscripts.js"></script>
 <style>
 body {font-family: "Raleway", Arial, sans-serif}
@@ -19,20 +20,17 @@ body {font-family: "Raleway", Arial, sans-serif}
   <header class="w3-container w3-xlarge w3-padding-24">
     <a href="#" class="w3-left w3-button w3-white">MY FISHTANK</a>
   </header>
-
+  <div class = "w3-row">
+	  <p id="food">Last fed:</p>
+  </div>
   <!-- Photo Grid -->
   <div class="w3-row">
     <div class="w3-half">
-     <!-- <img src="/w3images/streetart.jpg" style="width:100%">
-      <img src="/w3images/streetart2.jpg" style="width:100%">
-      <img src="/w3images/streetart5.jpg" style="width:100%"> -->
+      <canvas id="temp" width="400" height="400"></canvas>
     </div>
 
     <div class="w3-half">
-     <!--
-      <img src="/w3images/streetart3.jpg" style="width:100%">
-      <img src="/w3images/streetart4.jpg" style="width:100%">
-     -->
+      <canvas id="light" width="400" height="400"></canvas>
     </div>
   </div>
   
