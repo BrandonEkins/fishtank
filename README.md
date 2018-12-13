@@ -16,7 +16,7 @@ The goal of this project is to simplify the different tasks associated with taki
 
 ### Button Circuit
 
-![circuit](photos/buttonCircuit.png)
+![circuit](photos/buttonCircuit.PNG)
 
 ## Part list
 
